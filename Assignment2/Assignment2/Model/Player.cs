@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assignment2.Model
 {
-    internal class Class1
+    internal class Player
     {
     }
 }

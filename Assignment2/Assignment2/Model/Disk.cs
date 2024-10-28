@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assignment2.Model
 {
-    internal class Field
+    public enum Disk
     {
+        Empty,
+        Black,
+        White
     }
 }
