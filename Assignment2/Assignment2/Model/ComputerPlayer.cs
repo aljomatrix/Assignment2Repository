@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment2.ViewModel
+namespace Assignment2.Model
 {
-    internal class HumanPlayer
+    internal class ComputerPlayer
     {
     }
 }
