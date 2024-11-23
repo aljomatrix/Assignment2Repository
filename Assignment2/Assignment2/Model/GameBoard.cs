@@ -144,7 +144,7 @@ namespace Assignment2.Model
         {
             if (IsValidMove(row, col, currentPlayerDisk) == false)
             {
-                throw new InvalidMoveException();
+                // throw new InvalidMoveException();
             }
 
             board[row, col] = currentPlayerDisk;
