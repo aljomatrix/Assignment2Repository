@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assignment2.ViewModel
 {
-    internal class HumanPlayer
+    internal class GameWindowViewModel
     {
     }
 }

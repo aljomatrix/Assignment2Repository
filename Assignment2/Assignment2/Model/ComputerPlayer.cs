@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment2.ViewModel
+namespace Assignment2.Model
 {
-    public abstract class Player
+    internal class ComputerPlayer
     {
-
     }
 }
