@@ -18,6 +18,41 @@ namespace Assignment2.Model
             get { return board; }
         }
 
+        public GameBoard()
+        {
+            //Reseting the board and setting up the initial starting position
+
+            resetBoard();
+
+            board[4, 4] = Disk.White;
+            board[4, 5] = Disk.Black;
+            board[5, 4] = Disk.Black;
+            board[5, 5] = Disk.White;
+        }
+        public List<(int row, int col)> GetValidMoves(Disk currentPlayerDisk)
+        {
+            // Create a list to store valid moves
+            List<(int row, int col)> validMoves = new List<(int, int)>();
+
+            // Iterate through each cell on the board
+            for (int row = 0; row < 8; row++)
+            {
+                for (int col = 0; col < 8; col++)
+                {
+                    // Check if the move at (row, col) is valid
+                    if (IsValidMove(row, col, currentPlayerDisk))
+                    {
+                        // Add the valid move to the list
+                        validMoves.Add((row, col));
+                    }
+                }
+            }
+
+            // Return the list of valid moves
+            return validMoves;
+        }
+
+
         private int BlackDiskCount
         {
             get
@@ -53,6 +88,18 @@ namespace Assignment2.Model
 
         }
 
+        public int DiskCount(Disk DiskColor)
+        {
+            if(DiskColor == Disk.Black)
+            {
+                return BlackDiskCount;
+            }
+            else
+            {
+                return WhiteDiskCount;
+            }
+        }
+
 
         private void resetBoard()
         {
@@ -66,17 +113,7 @@ namespace Assignment2.Model
             }
         }
 
-        public GameBoard()
-        {
-            //Reseting the board and setting up the initial starting position
-
-            resetBoard();
-
-            board[4, 4] = Disk.White;
-            board[4, 5] = Disk.Black;
-            board[5, 4] = Disk.Black;
-            board[5, 5] = Disk.White;
-        }
+        
 
 
 
@@ -140,7 +177,7 @@ namespace Assignment2.Model
             return false;
         }
 
-       void ExecuteMove(int row, int col, Disk currentPlayerDisk)
+       public void ExecuteMove(int row, int col, Disk currentPlayerDisk)
         {
             if (IsValidMove(row, col, currentPlayerDisk) == false)
             {
@@ -169,7 +206,7 @@ namespace Assignment2.Model
 
         }
 
-        void FlipDisksInDirection(int startRow, int startCol, int dRow, int dCol, Disk currentPlayerDisk)
+        private void FlipDisksInDirection(int startRow, int startCol, int dRow, int dCol, Disk currentPlayerDisk)
         {
             Disk opponentDisk = DetermainOpponentDisk(currentPlayerDisk);
 
@@ -215,7 +252,7 @@ namespace Assignment2.Model
                 return Disk.Black;
             }
         }
-        bool hasValidMoves(Disk playerDisk)
+        public bool hasValidMoves(Disk playerDisk)
         {
             for(int col = 0; col < 8; col++)
             {
@@ -242,7 +279,7 @@ namespace Assignment2.Model
             return true;
         }
 
-        bool GameOver()
+        internal bool GameOver()
         {
             if (boardIsFull() || (hasValidMoves(Disk.White) == false && hasValidMoves(Disk.Black) == false))
             {

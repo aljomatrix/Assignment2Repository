@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Assignment2.Exceptions
 {
-    internal class Class1
+    public class InvalidMoveException : Exception
     {
+        public InvalidMoveException() { }
     }
 }
