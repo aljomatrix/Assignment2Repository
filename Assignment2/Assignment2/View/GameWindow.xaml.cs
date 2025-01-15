@@ -5,6 +5,7 @@ namespace Assignment2.View
 {
     public partial class GameWindow : Window
     {
+        private GameManager gameManager;
         public GameWindow()
         {
             InitializeComponent();
@@ -48,7 +49,7 @@ namespace Assignment2.View
 
                 // Create the GameManager instance.
                 GameManager game = new GameManager(player1, player2);
-                game.StartGame();
+                game.StartGame(GameGridControl);
 
             }
             else

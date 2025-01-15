@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assignment2.Model;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -32,7 +33,7 @@ namespace Assignment2.View
         }
 
         // Update the visual state of the board (e.g., draw pieces)
-        public void UpdateBoard(string[,] boardState)
+        public void UpdateBoard(Disk[,] boardState)
         {
             GameBoard.Children.Clear(); // Clear previous state
 
@@ -47,7 +48,7 @@ namespace Assignment2.View
                         BorderThickness = new Thickness(1)
                     };
 
-                    if (boardState[row, column] == "W")
+                    if (boardState[row, column] == Disk.White)
                     {
                         tile.Child = new Ellipse
                         {
@@ -58,7 +59,7 @@ namespace Assignment2.View
                             VerticalAlignment = VerticalAlignment.Center
                         };
                     }
-                    else if (boardState[row, column] == "B")
+                    else if (boardState[row, column] == Disk.Black)
                     {
                         tile.Child = new Ellipse
                         {

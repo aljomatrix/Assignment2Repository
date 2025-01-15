@@ -10,7 +10,7 @@ namespace Assignment2.Model
 {
     internal class GameManager
     {
-        GameBoard Board;
+        public GameBoard Board;
         Player Player1;
         Player Player2;
         Player CurrentPlayer;
@@ -32,9 +32,10 @@ namespace Assignment2.Model
             }
         }
 
-        public void StartGame()
+        public void StartGame(GameGrid grid)
         {
-            while(Board.GameOver() == false)
+            grid.UpdateBoard(Board.BoardState);
+            while (Board.GameOver() == false)
             {
                 if(Board.hasValidMoves(CurrentPlayer.Disk))
                 {
@@ -60,6 +61,7 @@ namespace Assignment2.Model
                     //If the curent player has no valid moves, it becomes the next players turn
                     switchPlayer();
                 }
+                grid.UpdateBoard(Board.BoardState);
             }
             if (Board.DiskCount(Player1.Disk) == Board.DiskCount(Player2.Disk))
             {
