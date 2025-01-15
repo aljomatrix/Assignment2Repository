@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Assignment2.Model;
+using System.Windows;
 
 namespace Assignment2.View
 {
@@ -27,13 +28,28 @@ namespace Assignment2.View
                 Player1Label.Text = "Player 1: " + player1Name;
                 Player2Label.Text = "Player 2: " + player2Name;
 
-                // You can set the scores or other initial data
+                // Set the score to 0
                 Player1Score.Text = "Black Disks: 0";
                 Player2Score.Text = "White Disks: 0";
 
-                // Initialize the game with the provided player data
-                // For example:
-                // GameManager.StartGame(player1Name, player2Name, isPlayer2Computer);
+
+                // Creates 3 instances for the if statement
+                Player player1 = new HumanPlayer(player1Name, Disk.White);
+                Player player2;
+                if (isPlayer2Computer)
+                {
+                    player2 = new ComputerPlayer(player2Name, Disk.Black);
+                }
+                else
+                {
+                    player2 = new HumanPlayer(player2Name, Disk.Black);
+                }
+
+
+                // Create the GameManager instance.
+                GameManager game = new GameManager(player1, player2);
+                game.StartGame();
+
             }
             else
             {

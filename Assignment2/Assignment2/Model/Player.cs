@@ -21,4 +21,5 @@ namespace Assignment2.Model
         public abstract (int x, int y) RequestMove(GameBoard board, List<(int x, int y)> validMoves);
    
     }
+
 }
