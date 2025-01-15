@@ -18,7 +18,6 @@ namespace Assignment2.Model
         public GameManager(Player player1, Player player2)
         {
             this.Board = new GameBoard();
-
             this.Player1 = player1;
             this.Player2 = player2;
 
@@ -32,6 +31,7 @@ namespace Assignment2.Model
                 this.CurrentPlayer = Player2;
             }
         }
+
         public void StartGame()
         {
             while(Board.GameOver() == false)

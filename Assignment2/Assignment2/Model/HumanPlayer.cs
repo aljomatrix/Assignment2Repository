@@ -6,7 +6,36 @@ using System.Threading.Tasks;
 
 namespace Assignment2.Model
 {
-    internal class HumanPlayer
+    class HumanPlayer : Player
     {
+        public HumanPlayer(string name, Disk disk) : base(name, disk)
+        {
+        }
+
+        public override (int x, int y) RequestMove(GameBoard board, List<(int x, int y)> validMoves)
+        {
+            //placeholder move
+            (int x, int y) selectedMove = (-1, -1);
+
+            // Create a thread for the move calculation
+            Thread moveThread = new Thread(() =>
+            {
+                Random random = new Random();
+                int index = random.Next(validMoves.Count);
+
+                selectedMove = validMoves[index];
+
+                //Sleep for 2 seconds
+                Thread.Sleep(2000);
+            });
+
+            // Start the thread and wait for it to finish
+            moveThread.Start();
+            moveThread.Join(); // Wait for the thread to finish before proceeding
+
+            // Return the selected move
+            return selectedMove;
+        }
     }
+
 }

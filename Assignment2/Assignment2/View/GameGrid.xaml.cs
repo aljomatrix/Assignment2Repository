@@ -7,9 +7,6 @@ using System.Windows.Shapes;
 
 namespace Assignment2.View
 {
-    /// <summary>
-    /// Interaction logic for GameGrid.xaml
-    /// </summary>
     public partial class GameGrid : UserControl
     {
         // Event to notify the GameManager about the clicked position
