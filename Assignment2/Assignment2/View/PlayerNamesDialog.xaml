@@ -1,21 +1,15 @@
-﻿<Window x:Class="Assignment2.View.SetUpGameDialog"
+﻿<Window x:Class="Assignment2.View.PlayerNamesDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Set Up Game" Height="300" Width="400" WindowStartupLocation="CenterOwner">
+        Title="Enter Player Names" Height="200" Width="400" WindowStartupLocation="CenterOwner">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
-            <!-- Player 1 Name -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Enter Player 1's name:" Margin="10"/>
             <TextBox x:Name="Player1NameTextBox" Width="200" Margin="10"/>
 
-            <!-- Player 2 Name -->
             <TextBlock Text="Enter Player 2's name:" Margin="10"/>
             <TextBox x:Name="Player2NameTextBox" Width="200" Margin="10"/>
 
-            <!-- Player 2 is Computer checkbox -->
-            <CheckBox x:Name="IsPlayer2ComputerCheckBox" Content="Player 2 is a Computer" Margin="10" Checked="IsPlayer2ComputerCheckBox_Checked" Unchecked="IsPlayer2ComputerCheckBox_Unchecked"/>
-
-            <!-- Buttons -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                 <Button Content="OK" Width="100" Margin="5" Click="OKButton_Click"/>
                 <Button Content="Cancel" Width="100" Margin="5" Click="CancelButton_Click"/>
