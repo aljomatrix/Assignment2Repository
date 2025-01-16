@@ -60,22 +60,27 @@ namespace Assignment2.View
             {
                 for (int column = 0; column < 8; column++)
                 {
-                    var tile = BoardGrid.Children[row * 8 + column] as Border; // Get the corresponding tile
+                    // Find the corresponding Border in the BoardGrid
+                    var tile = BoardGrid.Children[row * 8 + column] as Border;
 
-                    // Find the Ellipse inside the Border
+                    // Ensure the Border is found and the Child is an Ellipse
                     var ellipse = tile?.Child as Ellipse;
 
-                    if (boardState[row, column] == Disk.White)
+                    // Update the Ellipse fill based on the board state
+                    if (ellipse != null)
                     {
-                        ellipse.Fill = Brushes.White;
-                    }
-                    else if (boardState[row, column] == Disk.Black)
-                    {
-                        ellipse.Fill = Brushes.Black;
-                    }
-                    else
-                    {
-                        ellipse.Fill = Brushes.Transparent; // Empty cell
+                        if (boardState[row, column] == Disk.White)
+                        {
+                            ellipse.Fill = Brushes.White; // Set piece to white
+                        }
+                        else if (boardState[row, column] == Disk.Black)
+                        {
+                            ellipse.Fill = Brushes.Black; // Set piece to black
+                        }
+                        else
+                        {
+                            ellipse.Fill = Brushes.Transparent; // Empty cell
+                        }
                     }
                 }
             }

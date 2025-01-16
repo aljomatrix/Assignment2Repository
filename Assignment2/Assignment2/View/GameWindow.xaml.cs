@@ -33,6 +33,18 @@ namespace Assignment2.View
                 Player1Score.Text = "Black Disks: 0";
                 Player2Score.Text = "White Disks: 0";
 
+                // Create an 8x8 board and initialize it with empty disks
+                Disk[,] boardState = new Disk[8, 8];
+
+                // Initialize the pieces in the starting configuration
+                boardState[3, 3] = Disk.White;
+                boardState[3, 4] = Disk.Black;
+                boardState[4, 3] = Disk.Black;
+                boardState[4, 4] = Disk.White;
+
+                // Update the board with the initial state
+                GameGridControl.UpdateBoard(boardState);  // Call UpdateBoard on the GameGridControl
+
 
                 /* Creates 3 instances for the if statement. player 1 is always human 
                    so i always creater player1 as HumanPlayer and the if determines if it's computer or human.*/
