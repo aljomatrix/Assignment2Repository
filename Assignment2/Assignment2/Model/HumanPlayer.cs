@@ -12,26 +12,18 @@ namespace Assignment2.Model
         {
         }
 
-        public override (int x, int y) RequestMove(GameBoard board, List<(int x, int y)> validMoves)
+        public override async Task<(int x, int y)> RequestMove(GameBoard board, List<(int x, int y)> validMoves)
         {
             //placeholder move
             (int x, int y) selectedMove = (-1, -1);
 
-            // Create a thread for the move calculation
-            Thread moveThread = new Thread(() =>
-            {
-                Random random = new Random();
-                int index = random.Next(validMoves.Count);
+            Random random = new Random();
+            int index = random.Next(validMoves.Count);
 
-                selectedMove = validMoves[index];
+            selectedMove = validMoves[index];
 
-                //Sleep for 2 seconds
-                Thread.Sleep(2000);
-            });
-
-            // Start the thread and wait for it to finish
-            moveThread.Start();
-            moveThread.Join(); // Wait for the thread to finish before proceeding
+            //Sleep for 2 seconds
+            await Task.Delay(2000);
 
             // Return the selected move
             return selectedMove;
