@@ -34,7 +34,8 @@ namespace Assignment2.View
                 Player2Score.Text = "White Disks: 0";
 
 
-                // Creates 3 instances for the if statement
+                /* Creates 3 instances for the if statement. player 1 is always human 
+                   so i always creater player1 as HumanPlayer and the if determines if it's computer or human.*/
                 Player player1 = new HumanPlayer(player1Name, Disk.White);
                 Player player2;
                 if (isPlayer2Computer)

@@ -19,8 +19,8 @@
         </StackPanel>
 
         <!-- Row 2: Game Grid -->
-        <Grid x:Name="GameBoard" Grid.Row="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <!-- Add GameGrid user control here -->
+        <Grid x:Name="GameBoard" Grid.Row="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGray">
+            <!-- The GameGrid control that we defined in the UserControl -->
             <local:GameGrid x:Name="GameGridControl" />
         </Grid>
 

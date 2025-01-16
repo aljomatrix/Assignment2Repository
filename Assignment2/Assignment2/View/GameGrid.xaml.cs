@@ -1,8 +1,6 @@
 ﻿using Assignment2.Model;
-using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -10,70 +8,75 @@ namespace Assignment2.View
 {
     public partial class GameGrid : UserControl
     {
-        // Event to notify the GameManager about the clicked position
-        public event Action<int, int> TileClicked;
-
         public GameGrid()
         {
             InitializeComponent();
+            InitializeBoard();
         }
 
-        // MouseDown handler to determine which tile was clicked
-        private void GameBoard_MouseDown(object sender, MouseButtonEventArgs e)
+        private void InitializeBoard()
         {
-            // Get the position of the mouse click relative to the grid
-            var position = e.GetPosition(GameBoard);
+            // Clear any existing content (in case of reset)
+            BoardGrid.Children.Clear();
 
-            // Determine which row and column were clicked
-            int row = (int)(position.Y / (GameBoard.ActualHeight / 8)); // Assuming an 8x8 grid
-            int column = (int)(position.X / (GameBoard.ActualWidth / 8));
-
-            // Notify subscribers (e.g., GameManager)
-            TileClicked?.Invoke(row, column);
-        }
-
-        // Update the visual state of the board (e.g., draw pieces)
-        public void UpdateBoard(Disk[,] boardState)
-        {
-            GameBoard.Children.Clear(); // Clear previous state
-
+            // Loop through each grid cell and create a tile
             for (int row = 0; row < 8; row++)
             {
                 for (int column = 0; column < 8; column++)
                 {
+                    // Create the tile (Border)
                     var tile = new Border
                     {
-                        Background = (row + column) % 2 == 0 ? Brushes.White : Brushes.Black, // Checkerboard pattern
-                        BorderBrush = Brushes.Gray,
+                        Background = (row + column) % 2 == 0 ? Brushes.White : Brushes.Gray,  // Checkerboard pattern
+                        BorderBrush = Brushes.Black,
                         BorderThickness = new Thickness(1)
                     };
 
+                    // Optionally, add an Ellipse for pieces (will be added later in the UpdateBoard method)
+                    tile.Child = new Ellipse
+                    {
+                        Fill = Brushes.Transparent, // Pieces will be added later
+                        Width = 40,
+                        Height = 40,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+
+                    // Set row and column for the grid placement
+                    Grid.SetRow(tile, row);
+                    Grid.SetColumn(tile, column);
+
+                    // Add the tile to the board grid
+                    BoardGrid.Children.Add(tile);
+                }
+            }
+        }
+
+        // This method will be called to update the board state dynamically (like placing pieces)
+        public void UpdateBoard(Disk[,] boardState)
+        {
+            // Loop through the board state (2D array) and place pieces
+            for (int row = 0; row < 8; row++)
+            {
+                for (int column = 0; column < 8; column++)
+                {
+                    var tile = BoardGrid.Children[row * 8 + column] as Border; // Get the corresponding tile
+
+                    // Find the Ellipse inside the Border
+                    var ellipse = tile?.Child as Ellipse;
+
                     if (boardState[row, column] == Disk.White)
                     {
-                        tile.Child = new Ellipse
-                        {
-                            Fill = Brushes.White,
-                            Width = 40,
-                            Height = 40,
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            VerticalAlignment = VerticalAlignment.Center
-                        };
+                        ellipse.Fill = Brushes.White;
                     }
                     else if (boardState[row, column] == Disk.Black)
                     {
-                        tile.Child = new Ellipse
-                        {
-                            Fill = Brushes.Black,
-                            Width = 40,
-                            Height = 40,
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            VerticalAlignment = VerticalAlignment.Center
-                        };
+                        ellipse.Fill = Brushes.Black;
                     }
-
-                    Grid.SetRow(tile, row);
-                    Grid.SetColumn(tile, column);
-                    GameBoard.Children.Add(tile);
+                    else
+                    {
+                        ellipse.Fill = Brushes.Transparent; // Empty cell
+                    }
                 }
             }
         }
