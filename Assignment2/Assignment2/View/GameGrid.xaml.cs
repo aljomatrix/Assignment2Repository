@@ -27,7 +27,7 @@ namespace Assignment2.View
                     // Create the tile (Border)
                     var tile = new Border
                     {
-                        Background = (row + column) % 2 == 0 ? Brushes.White : Brushes.Gray,  // Checkerboard pattern
+                        Background = (row + column) % 2 == 0 ? Brushes.LightGreen : Brushes.DarkGreen,  // Alternating green shades
                         BorderBrush = Brushes.Black,
                         BorderThickness = new Thickness(1)
                     };
@@ -51,6 +51,7 @@ namespace Assignment2.View
                 }
             }
         }
+
 
         // This method will be called to update the board state dynamically (like placing pieces)
         public void UpdateBoard(Disk[,] boardState)
