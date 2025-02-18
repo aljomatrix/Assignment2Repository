@@ -24,10 +24,10 @@ namespace Assignment2.Model
 
             resetBoard();
 
+            board[3, 3] = Disk.White;
+            board[3, 4] = Disk.Black;
+            board[4, 3] = Disk.Black;
             board[4, 4] = Disk.White;
-            board[4, 5] = Disk.Black;
-            board[5, 4] = Disk.Black;
-            board[5, 5] = Disk.White;
         }
         public List<(int row, int col)> GetValidMoves(Disk currentPlayerDisk)
         {

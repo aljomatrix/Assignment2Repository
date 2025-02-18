@@ -4,32 +4,135 @@
         xmlns:local="clr-namespace:Assignment2.View"
         Title="Othello Game" Height="500" Width="800">
 
-    <Grid x:Name="MainGrid">
-        <!-- Define row and column definitions -->
+    <!-- Parent Grid to hold both the buttons and the game board -->
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <!-- Row for buttons -->
+            <RowDefinition Height="*"/>
+            <!-- Row for the game board -->
         </Grid.RowDefinitions>
 
-        <!-- Row 1: Buttons for New Game and Exit -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+        <!-- StackPanel for buttons (New Game and Exit) -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Grid.Row="0">
             <Button Content="New Game" Width="120" Margin="5" Click="NewGameButton_Click"/>
             <Button Content="Exit Game" Width="120" Margin="5" Click="ExitGameButton_Click"/>
         </StackPanel>
 
-        <!-- Row 2: Game Grid -->
+        <!-- Game Board Grid -->
         <Grid x:Name="GameBoard" Grid.Row="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGray">
-            <!-- The GameGrid control that we defined in the UserControl -->
-            <local:GameGrid x:Name="GameGridControl" />
-        </Grid>
 
-        <!-- Row 3: Game status (current player info and disk count) -->
-        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="10">
-            <TextBlock x:Name="Player1Label" Text="Player 1: [Name]" Margin="10"/>
-            <TextBlock x:Name="Player1Score" Text="Black Disks: 0" Margin="10"/>
-            <TextBlock x:Name="Player2Label" Text="Player 2: [Name]" Margin="10"/>
-            <TextBlock x:Name="Player2Score" Text="White Disks: 0" Margin="10"/>
-        </StackPanel>
+            <!-- Define the rows and columns -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Top row for column labels -->
+                <RowDefinition Height="*"/>
+                <!-- Game Grid -->
+                <RowDefinition Height="Auto"/>
+                <!-- Bottom row for column labels -->
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <!-- Left labels -->
+                <ColumnDefinition Width="*"/>
+                <!-- Game Grid -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Right labels -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Top row labels (A-H) -->
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="B" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="2" Text="C" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="3" Text="D" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="4" Text="E" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="5" Text="F" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="6" Text="G" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="7" Text="H" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- Left row labels (1-8) -->
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Text="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Text="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Text="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="4" Text="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="5" Text="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="6" Text="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="7" Text="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- Game Grid -->
+            <local:GameGrid x:Name="GameGridControl" Grid.Row="1" Grid.Column="1"/>
+
+            <!-- Right row labels (1-8) -->
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Text="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Text="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Text="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="4" Text="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="5" Text="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="6" Text="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="7" Text="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- Bottom row labels (A-H) -->
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="B" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="2" Text="C" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="3" Text="D" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="4" Text="E" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="5" Text="F" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="6" Text="G" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="7" Text="H" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+
+        </Grid>
     </Grid>
+
 </Window>
