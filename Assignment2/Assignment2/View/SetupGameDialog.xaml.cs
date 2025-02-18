@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Assignment2.Model;
+using System.Windows;
 
 namespace Assignment2.View
 {
@@ -17,31 +18,34 @@ namespace Assignment2.View
         // Event handler for OK button click
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            // Capture the player names and computer flag
+            // Capture the player names and check if Player 2 is a computer
             Player1Name = Player1NameTextBox.Text;
+            IsPlayer2Computer = (bool)IsPlayer2ComputerCheckBox.IsChecked; // Get checkbox value
 
-            // Check if Player 2 is a computer
-            IsPlayer2Computer = (bool)IsPlayer2ComputerCheckBox.IsChecked;
-
-            // If Player 2 is a computer, automatically set the name to "Computer"
             if (IsPlayer2Computer)
             {
-                Player2Name = "Computer";
+                Player2Name = "Computer"; // Auto-set name
             }
             else
             {
-                // Otherwise, get Player 2's name from the TextBox
                 Player2Name = Player2NameTextBox.Text;
             }
 
-            // Validation: Ensure both player names are provided (except Player 2 if it's a computer)
-            if (string.IsNullOrEmpty(Player1Name) || (string.IsNullOrEmpty(Player2Name) && !IsPlayer2Computer))
+            // Ensure player names are provided
+            if (string.IsNullOrEmpty(Player1Name) || (!IsPlayer2Computer && string.IsNullOrEmpty(Player2Name)))
             {
                 MessageBox.Show("Please enter names for both players.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            // Set the DialogResult to true and close the dialog if everything is valid
+            // Start the game and pass IsPlayer2Computer to GameGrid
+            GameGrid gameGrid = new GameGrid();
+            if (IsPlayer2Computer)
+            {
+                gameGrid._isPlayer2Computer = true;
+            }
+
+            // Set the dialog result and close
             this.DialogResult = true;
             this.Close();
         }
