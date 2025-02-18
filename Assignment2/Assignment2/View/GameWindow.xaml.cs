@@ -1,5 +1,8 @@
 ﻿using Assignment2.Model;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+
 
 namespace Assignment2.View
 {
@@ -9,6 +12,40 @@ namespace Assignment2.View
         public GameWindow()
         {
             InitializeComponent();
+            InitializeStartingPieces();
+        }
+        private void InitializeStartingPieces()
+        {
+            PlacePiece(3, 3, "white_piece.png");
+            PlacePiece(4, 4, "white_piece.png");
+            PlacePiece(3, 4, "black_piece.png");
+            PlacePiece(4, 3, "black_piece.png");
+        }
+
+        private void PlacePiece(int row, int col, string pieceImage)
+        {
+
+            var (x, y) = CellToPixelPosition(row, col);
+
+            Image imageControl = new Image
+            {
+                Source = new BitmapImage(new Uri(pieceImage, UriKind.RelativeOrAbsolute)),
+                Width = 50,
+                Height = 50
+            };
+
+           // BoardGrid.Children.Add(imageControl);
+        }
+
+        private (int x, int y) CellToPixelPosition(int row, int col)
+        {
+            int cellWidth = 50;
+            int cellHeight = 50;
+
+            int x = col * cellWidth;
+            int y = row * cellHeight;
+
+            return (x, y);
         }
 
         // Event handler for the "New Game" button click

@@ -12,7 +12,7 @@ namespace Assignment2.Model
     {
 
         private Disk[,] board = new Disk[8, 8];
-
+        
         public Disk[,] BoardState
         {
             get { return board; }
@@ -208,38 +208,49 @@ namespace Assignment2.Model
 
         private void FlipDisksInDirection(int startRow, int startCol, int dRow, int dCol, Disk currentPlayerDisk)
         {
+            // Determine the opponent's disk color
             Disk opponentDisk = DetermainOpponentDisk(currentPlayerDisk);
 
+            // List to store the disks that will be flipped
             List<(int, int)> disksToFlip = new List<(int, int)>();
 
+            // Start from the next cell in the direction (skip the clicked spot)
             int currentRow = startRow + dRow;
             int currentCol = startCol + dCol;
 
-            while(currentRow >= 0 && currentRow < 8 && currentCol >= 0 && currentCol < 8)
+            // Iterate in the given direction
+            while (currentRow >= 0 && currentRow < 8 && currentCol >= 0 && currentCol < 8)
             {
+                // If we encounter an opponent's disk, add it to the list of disks to flip
                 if (board[currentRow, currentCol] == opponentDisk)
                 {
                     disksToFlip.Add((currentRow, currentCol));
                 }
+                // If we encounter the current player's disk, flip all the opponent's disks we've collected so far
                 else if (board[currentRow, currentCol] == currentPlayerDisk)
                 {
-                    foreach (var (row, col) in disksToFlip)
+                    // If we have opponent disks to flip, do it
+                    if (disksToFlip.Count > 0)
                     {
-                        board[row, col] = opponentDisk;
+                        foreach (var (row, col) in disksToFlip)
+                        {
+                            board[row, col] = currentPlayerDisk; // Flip opponent disk to the current player's disk
+                        }
                     }
-                    return;
+                    return; // We've finished flipping in this direction, so return
                 }
+                // If we encounter an empty space, stop the search (no flip possible in this direction)
                 else
                 {
                     return;
                 }
 
+                // Move one step further in the current direction
                 currentRow += dRow;
                 currentCol += dCol;
-
             }
-            
         }
+
 
         Disk DetermainOpponentDisk(Disk currentPlayerDisk)
         {

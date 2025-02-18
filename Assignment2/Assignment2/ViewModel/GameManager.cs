@@ -19,7 +19,7 @@ namespace Assignment2.Model
             this.player2 = player2;
         }
 
-        public void StartGame()
+        public void StartGame(GameGrid gameGridControl)
         {
 
         }

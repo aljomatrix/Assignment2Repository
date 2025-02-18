@@ -8,13 +8,13 @@ namespace Assignment2.View
         public WinnerDialog(string winnerMessage)
         {
             InitializeComponent();
-            WinnerMessage.Text = winnerMessage;  // Set the winner message
+            WinnerMessage.Text = winnerMessage; 
         }
 
         // Event handler for Close button click
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();  // Close the WinnerDialog
+            Application.Current.Shutdown();  
         }
     }
 }

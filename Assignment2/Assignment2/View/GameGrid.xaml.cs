@@ -1,6 +1,7 @@
 ﻿using Assignment2.Model;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -8,12 +9,88 @@ namespace Assignment2.View
 {
     public partial class GameGrid : UserControl
     {
+        GameBoard _board;
+        private Disk _currentPlayerDisk = Disk.Black;
         public GameGrid()
         {
+            _board = new GameBoard();
             InitializeComponent();
             InitializeBoard();
+            UpdateBoard(_board.BoardState);
         }
+        // Mouse Click event handler
+        private void GameGrid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // Get the position where the user clicked
+            var mousePosition = e.GetPosition(BoardGrid);
+            var column = (int)(mousePosition.X / 50);  // Assuming each cell is 50px wide
+            var row = (int)(mousePosition.Y / 50);     // Assuming each cell is 50px tall
 
+            // Ensure the row and column are within bounds (0-7)
+            if (row >= 0 && row < 8 && column >= 0 && column < 8)
+            {
+                // Check if the move is valid for the current player
+                if (_board.IsValidMove(row, column, _currentPlayerDisk))
+                {
+                    // Execute the move
+                    _board.ExecuteMove(row, column, _currentPlayerDisk);
+
+                    // Update the board after the move
+                    UpdateBoard(_board.BoardState);
+
+                    // Toggle the current player for the next turn
+                    TogglePlayerTurn();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid move! Please try again.");
+                }
+            }
+            if (_board.GameOver())
+            {
+                InitializeWinnerDialog();
+            }
+
+        }
+        private void InitializeWinnerDialog()
+        {
+            // Determine the winner
+            int blackCount = _board.DiskCount(Disk.Black);
+            int whiteCount = _board.DiskCount(Disk.White);
+            string winnerMessage = "Game Over! ";
+
+            if (blackCount > whiteCount)
+            {
+                winnerMessage += "Black wins!";
+            }
+            else if (whiteCount > blackCount)
+            {
+                winnerMessage += "White wins!";
+            }
+            else
+            {
+                winnerMessage += "It's a tie!";
+            }
+
+            // Show the winner dialog
+            WinnerDialog winnerDialog = new WinnerDialog(winnerMessage);
+            winnerDialog.ShowDialog();
+
+            // Close the application after the user acknowledges the result
+            Application.Current.Shutdown();
+        }
+        private void TogglePlayerTurn()
+        {
+            // Toggle between Black and White
+            if (_currentPlayerDisk == Disk.Black)
+            {
+                _currentPlayerDisk = Disk.White;
+            }
+            else
+            {
+                _currentPlayerDisk = Disk.Black;
+            }
+        }
         private void InitializeBoard()
         {
             // Clear any existing content (in case of reset)
@@ -50,6 +127,9 @@ namespace Assignment2.View
                     BoardGrid.Children.Add(tile);
                 }
             }
+
+            // Initialize the 4 starting ones with the right color
+
         }
 
 
