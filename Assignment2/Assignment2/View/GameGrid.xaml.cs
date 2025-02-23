@@ -46,7 +46,7 @@ namespace Assignment2.View
                     TogglePlayerTurn();
 
                     // If Player 2 is a computer, execute AI move
-                    if (SetUpGameDi is ComputerPlayer)
+                    if (_isPlayer2Computer)
                     {
                         await Task.Delay(1000); // Optional delay for realism
                         var aiMove = await _computerPlayer.ExecuteAIMove(_board);

@@ -25,7 +25,6 @@ namespace Assignment2.View
 
         private void PlacePiece(int row, int col, string pieceImage)
         {
-
             var (x, y) = CellToPixelPosition(row, col);
 
             Image imageControl = new Image
@@ -63,29 +62,19 @@ namespace Assignment2.View
                 string player2Name = setUpDialog.Player2Name;
                 bool isPlayer2Computer = setUpDialog.IsPlayer2Computer;
 
-
-                /* Creates 3 instances for the if statement. player 1 is always human 
-                   so i always creater player1 as HumanPlayer and the if determines if it's computer or human.*/
+                // Creates 3 instances for the if statement. player 1 is always human 
+                // so i always creater player1 as HumanPlayer and the if determines if it's computer or human.
                 Player player1 = new HumanPlayer(player1Name, Disk.White);
-                gameManager.player1 = player1;
-                if (isPlayer2Computer)
-                {
-                    ComputerPlayer player2;
-                    player2 = new ComputerPlayer(player2Name, Disk.Black);
-                    gameManager.player2 = player2; ;
-                }
-                else
-                {
-                    Player player2;
-                    player2 = new HumanPlayer(player2Name, Disk.Black);
-                    gameManager.player2 = player2;
-                }
-
+                Player player2 = isPlayer2Computer ? new ComputerPlayer(player2Name, Disk.Black) : new HumanPlayer(player2Name, Disk.Black);
 
                 // Create the GameManager instance.
-                GameManager game = new GameManager(player1Name, player2Name);
-                game.StartGame(GameGridControl);
+                gameManager = new GameManager(player1, player2);
 
+                // Set player names in the UI
+                Player1NameTextBlock.Text = $"Player 1: {player1Name}";
+                Player2NameTextBlock.Text = $"Player 2: {player2Name}";
+
+                gameManager.StartGame(GameGridControl);
             }
             else
             {
