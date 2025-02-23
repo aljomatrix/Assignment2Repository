@@ -31,6 +31,11 @@ namespace Assignment2.Model
             _board = new GameBoard();
         }
 
+        public GameManager()
+        {
+            _board = new GameBoard();
+        }
+
         public void ResetBoard()
         {
             _board = new GameBoard(); // Reinitialize the board to reset it

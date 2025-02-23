@@ -14,8 +14,7 @@ namespace Assignment2.View
 {
     public partial class GameGrid : UserControl
     {
-        private GameManager _gameManager;
-
+        private GameManager _gameManager = new GameManager();
 
         public GameGrid()
         {
