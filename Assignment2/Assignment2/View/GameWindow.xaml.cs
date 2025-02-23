@@ -79,6 +79,8 @@ namespace Assignment2.View
                 Player1NameTextBlock.Text = $"Player 1: {player1Name}";
                 Player2NameTextBlock.Text = $"Player 2: {player2Name}";
 
+                GameGridControl.SetPlayers(player1, player2);
+
                 gameManager.StartGame(GameGridControl);
 
             }
@@ -94,6 +96,15 @@ namespace Assignment2.View
         {
             // Close the application
             Application.Current.Shutdown();
+        }
+    }
+    public partial class GameGrid : UserControl
+    {
+        private GameManager _gameManager;
+
+        public void SetPlayers(Player player1, Player player2)
+        {
+            _gameManager = new GameManager(player1, player2);
         }
     }
 }
