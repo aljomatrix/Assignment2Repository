@@ -23,7 +23,7 @@ namespace Assignment2.Model
             //Reseting the board and setting up the initial starting position
 
             resetBoard();
-
+            
             board[3, 3] = Disk.White;
             board[3, 4] = Disk.Black;
             board[4, 3] = Disk.Black;
@@ -128,6 +128,7 @@ namespace Assignment2.Model
                     board[row, col] = Disk.Empty;
                 }
             }
+
         }
 
         

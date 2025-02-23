@@ -10,11 +10,15 @@ namespace Assignment2.View
     public partial class GameWindow : Window
     {
         private GameManager gameManager;
+        private string player1Name;
+        private string player2Name;
+
         public GameWindow()
         {
             InitializeComponent();
             InitializeStartingPieces();
         }
+
         private void InitializeStartingPieces()
         {
             PlacePiece(3, 3, "white_piece.png");
@@ -54,7 +58,6 @@ namespace Assignment2.View
             // Show the SetUpGameDialog to collect player names and types
             SetUpGameDialog setUpDialog = new SetUpGameDialog();
             bool? result = setUpDialog.ShowDialog();  // Show dialog and wait for result
-
             if (result == true)  // If OK was clicked (DialogResult = true)
             {
                 // Retrieve player names and player types
@@ -81,6 +84,11 @@ namespace Assignment2.View
                     GameGridControl._computerPlayer = (ComputerPlayer)player2;
                 }
                 gameManager.StartGame(GameGridControl);
+
+                // Close the current GameWindow and open a new one
+                GameWindow newGameWindow = new GameWindow();
+                newGameWindow.Show();
+                this.Close();
             }
             else
             {

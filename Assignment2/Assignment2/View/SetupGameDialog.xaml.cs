@@ -44,7 +44,6 @@ namespace Assignment2.View
             {
                 gameGrid._isPlayer2Computer = true;
             }
-
             // Set the dialog result and close
             this.DialogResult = true;
             this.Close();

@@ -9,7 +9,7 @@ using Assignment2.View;
 
 namespace Assignment2.Model
 {
-    class GameManager
+    public class GameManager
     {
         public Player player1 { set; get; }
         public Player player2 { set; get; }
@@ -20,7 +20,6 @@ namespace Assignment2.Model
             this.player1 = player1;
             this.player2 = player2;
         }
-
 
         public void StartGame(GameGrid gameGridControl)
         {
