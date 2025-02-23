@@ -13,9 +13,9 @@ namespace Assignment2.View
     public partial class GameGrid : UserControl
     {
         GameBoard _board;
-        public bool _isPlayer2Computer;  
+        public bool _isPlayer2Computer;
         private Disk _currentPlayerDisk = Disk.Black;
-        private ComputerPlayer _computerPlayer;
+        public ComputerPlayer _computerPlayer;
 
         public GameGrid()
         {
@@ -28,6 +28,9 @@ namespace Assignment2.View
         {
             InitializeComponent();
             _isPlayer2Computer = isPlayer2Computer;
+            _board = new GameBoard();
+            InitializeBoard();
+            UpdateBoard(_board.BoardState);
         }
 
         // Mouse Click event handler
@@ -146,7 +149,6 @@ namespace Assignment2.View
             // Initialize the 4 starting ones with the right color
 
         }
-
 
         // This method will be called to update the board state dynamically (like placing pieces)
         public void UpdateBoard(Disk[,] boardState)

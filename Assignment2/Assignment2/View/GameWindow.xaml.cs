@@ -74,6 +74,12 @@ namespace Assignment2.View
                 Player1NameTextBlock.Text = $"Player 1: {player1Name}";
                 Player2NameTextBlock.Text = $"Player 2: {player2Name}";
 
+                // Initialize the GameGrid with the isPlayer2Computer flag
+                GameGridControl._isPlayer2Computer = isPlayer2Computer;
+                if (isPlayer2Computer)
+                {
+                    GameGridControl._computerPlayer = (ComputerPlayer)player2;
+                }
                 gameManager.StartGame(GameGridControl);
             }
             else
