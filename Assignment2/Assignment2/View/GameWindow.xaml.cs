@@ -12,6 +12,7 @@ namespace Assignment2.View
         private GameManager gameManager;
         private string player1Name;
         private string player2Name;
+        
 
         public GameWindow()
         {
@@ -80,7 +81,7 @@ namespace Assignment2.View
 
                 // Initialize the GameGrid with the isPlayer2Computer flag
                 GameGridControl._isPlayer2Computer = isPlayer2Computer;
-                if (isPlayer2Computer)
+                if (player2 is ComputerPlayer)
                 {
                     GameGridControl._computerPlayer = (ComputerPlayer)player2;
                 }

@@ -5,6 +5,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Assignment2.Model.Assignment2;
+using static Assignment2.Model.GameManager;
+using System.Windows.Documents;
 
 
 
@@ -12,25 +14,21 @@ namespace Assignment2.View
 {
     public partial class GameGrid : UserControl
     {
-        GameBoard _board;
-        public bool _isPlayer2Computer;
-        private Disk _currentPlayerDisk = Disk.Black;
-        public ComputerPlayer _computerPlayer;
+        private GameManager _gameManager;
+
 
         public GameGrid()
         {
-            _board = new GameBoard();
             InitializeComponent();
             InitializeBoard();
-            UpdateBoard(_board.BoardState);
+            UpdateBoard(_gameManager.Board.BoardState);
+            _gameManager.OnUpdateBoard = new UpdateBoardDelegate(UpdateBoard);
         }
         public GameGrid(bool isPlayer2Computer)
         {
             InitializeComponent();
-            _isPlayer2Computer = isPlayer2Computer;
-            _board = new GameBoard();
             InitializeBoard();
-            UpdateBoard(_board.BoardState);
+            UpdateBoard(_gameManager.Board.BoardState);
         }
 
         // Mouse Click event handler
@@ -39,42 +37,14 @@ namespace Assignment2.View
             var mousePosition = e.GetPosition(BoardGrid);
             int column = (int)(mousePosition.X / 50);
             int row = (int)(mousePosition.Y / 50);
-
-            if (row >= 0 && row < 8 && column >= 0 && column < 8)
-            {
-                if (_board.IsValidMove(row, column, _currentPlayerDisk))
-                {
-                    _board.ExecuteMove(row, column, _currentPlayerDisk);
-                    UpdateBoard(_board.BoardState);
-                    TogglePlayerTurn();
-
-                    // If Player 2 is a computer, execute AI move
-                    if (_isPlayer2Computer)
-                    {
-                        await Task.Delay(1000); // Optional delay for realism
-                        var aiMove = await _computerPlayer.ExecuteAIMove(_board);
-                        _board.ExecuteMove(aiMove.x, aiMove.y, _currentPlayerDisk);
-                        UpdateBoard(_board.BoardState);
-                        TogglePlayerTurn();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Invalid move! Please try again.");
-                }
-            }
-
-            if (_board.GameOver())
-            {
-                InitializeWinnerDialog();
-            }
+            _gameManager.ExecuteMove(row, column);
         }
 
         private void InitializeWinnerDialog()
         {
             // Determine the winner
-            int blackCount = _board.DiskCount(Disk.Black);
-            int whiteCount = _board.DiskCount(Disk.White);
+            int blackCount = _gameManager.Board.DiskCount(Disk.Black);
+            int whiteCount = _gameManager.Board.DiskCount(Disk.White);
             string winnerMessage = "Game Over! ";
 
             if (blackCount > whiteCount)
@@ -97,18 +67,7 @@ namespace Assignment2.View
             // Close the application after the user acknowledges the result
             Application.Current.Shutdown();
         }
-        private void TogglePlayerTurn()
-        {
-            // Toggle between Black and White
-            if (_currentPlayerDisk == Disk.Black)
-            {
-                _currentPlayerDisk = Disk.White;
-            }
-            else
-            {
-                _currentPlayerDisk = Disk.Black;
-            }
-        }
+
         private void InitializeBoard()
         {
             // Clear any existing content (in case of reset)

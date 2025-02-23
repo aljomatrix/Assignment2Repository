@@ -40,10 +40,6 @@ namespace Assignment2.View
 
             // Start the game and pass IsPlayer2Computer to GameGrid
             GameGrid gameGrid = new GameGrid();
-            if (IsPlayer2Computer)
-            {
-                gameGrid._isPlayer2Computer = true;
-            }
             // Set the dialog result and close
             this.DialogResult = true;
             this.Close();
