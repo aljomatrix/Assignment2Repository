@@ -54,10 +54,6 @@ namespace Assignment2.Model
 
         public void ExecuteMove(int row, int col, Disk currentPlayerDisk)
         {
-            if (!IsValidMove(row, col, currentPlayerDisk))
-            {
-                throw new InvalidMoveException("The move is not valid.");
-            }
 
             board[row, col] = currentPlayerDisk;
 

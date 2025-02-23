@@ -28,6 +28,7 @@ namespace Assignment2.Model
             internal async Task<(int x, int y)> ExecuteAIMove(GameBoard board)
             {
                 // Get all valid moves for the AI
+                _aiDisk = Disk.White;
                 List<(int x, int y)> validMoves = board.GetValidMoves(_aiDisk);
 
                 // If no valid moves, return (-1, -1) to indicate pass
