@@ -85,10 +85,6 @@ namespace Assignment2.View
                 }
                 gameManager.StartGame(GameGridControl);
 
-                // Close the current GameWindow and open a new one
-                GameWindow newGameWindow = new GameWindow();
-                newGameWindow.Show();
-                this.Close();
             }
             else
             {
