@@ -55,6 +55,7 @@ namespace Assignment2.View
         // Event handler for the "New Game" button click
         private void NewGameButton_Click(object sender, RoutedEventArgs e)
         {
+
             // Show the SetUpGameDialog to collect player names and types
             SetUpGameDialog setUpDialog = new SetUpGameDialog();
             bool? result = setUpDialog.ShowDialog();  // Show dialog and wait for result

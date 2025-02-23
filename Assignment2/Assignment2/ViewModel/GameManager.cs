@@ -11,20 +11,30 @@ namespace Assignment2.Model
 {
     public class GameManager
     {
-        public Player player1 { set; get; }
-        public Player player2 { set; get; }
-
+        private GameBoard _board;
+        private Player _player1;
+        private Player _player2;
 
         public GameManager(Player player1, Player player2)
         {
-            this.player1 = player1;
-            this.player2 = player2;
+            _player1 = player1;
+            _player2 = player2;
+            _board = new GameBoard();
+        }
+
+        public void ResetBoard()
+        {
+            _board = new GameBoard(); // Reinitialize the board to reset it
         }
 
         public void StartGame(GameGrid gameGridControl)
         {
-
+            gameGridControl.UpdateBoard(_board.BoardState);
         }
 
+        public GameBoard GetBoard()
+        {
+            return _board;
+        }
     }
 }
