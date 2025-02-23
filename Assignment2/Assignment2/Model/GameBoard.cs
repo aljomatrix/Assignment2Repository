@@ -8,7 +8,7 @@ using Assignment2.Exceptions;
 
 namespace Assignment2.Model
 {
-    internal class GameBoard
+    public class GameBoard
     {
 
         private Disk[,] board = new Disk[8, 8];
@@ -52,7 +52,28 @@ namespace Assignment2.Model
             return validMoves;
         }
 
+        public void ExecuteMove(int row, int col, Disk currentPlayerDisk)
+        {
+            if (!IsValidMove(row, col, currentPlayerDisk))
+            {
+                throw new InvalidMoveException("The move is not valid.");
+            }
 
+            board[row, col] = currentPlayerDisk;
+
+            int[,] directions = new int[,]
+            {
+                {-1, 0}, {1, 0}, {0, -1}, {0, 1},   // Up, Down, Left, Right
+                {-1, -1}, {-1, 1}, {1, -1}, {1, 1}  // Diagonals
+            };
+
+            for (int i = 0; i < directions.GetLength(0); i++)
+            {
+                int dRow = directions[i, 0];
+                int dCol = directions[i, 1];
+                FlipDisksInDirection(row, col, dRow, dCol, currentPlayerDisk);
+            }
+        }
         private int BlackDiskCount
         {
             get
@@ -177,34 +198,7 @@ namespace Assignment2.Model
             return false;
         }
 
-       public void ExecuteMove(int row, int col, Disk currentPlayerDisk)
-        {
-            if (IsValidMove(row, col, currentPlayerDisk) == false)
-            {
-                // throw new InvalidMoveException();
-            }
-
-            board[row, col] = currentPlayerDisk;
-
-            Disk opponentDisk = DetermainOpponentDisk(currentPlayerDisk);
-
-            int[,] directions = new int[,]
-            {
-                    {-1, 0}, {1, 0}, {0, -1}, {0, 1},   // Up, Down, Left, Right
-                    {-1, -1}, {-1, 1}, {1, -1}, {1, 1}  // Diagonals
-
-            };
-
-            for (int i = 0; i < directions.GetLength(0); i++)
-            {
-                int dRow = directions[i, 0];
-                int dCol = directions[i, 1];
-
-                FlipDisksInDirection(row, col, dRow, dCol, currentPlayerDisk);
-            }
-
-
-        }
+       
 
         private void FlipDisksInDirection(int startRow, int startCol, int dRow, int dCol, Disk currentPlayerDisk)
         {

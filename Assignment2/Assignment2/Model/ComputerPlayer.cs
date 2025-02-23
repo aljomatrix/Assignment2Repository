@@ -8,15 +8,21 @@ namespace Assignment2.Model
 {
     namespace Assignment2
     {
-        public class ComputerPlayer
+        public class ComputerPlayer : Player
         {
             private Disk _aiDisk;
             private string _aiName;
 
-            public ComputerPlayer(string player2Name, Disk aiDisk)
+            public ComputerPlayer(string player2Name, Disk aiDisk) : base(player2Name, aiDisk)
             {
-                _aiDisk = aiDisk;
+                this._aiDisk = aiDisk;
                 this._aiName = player2Name;
+            }
+
+            public override async Task<(int x, int y)> RequestMove(GameBoard board, List<(int x, int y)> validMoves)
+            {
+                await Task.Delay(1); // Simulates async behavior
+                return validMoves.Count > 0 ? validMoves[0] : (0, 0); // Returns the first valid move or (0,0) as fallback
             }
 
             internal async Task<(int x, int y)> ExecuteAIMove(GameBoard board)

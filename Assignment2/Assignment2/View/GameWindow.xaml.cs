@@ -67,16 +67,18 @@ namespace Assignment2.View
                 /* Creates 3 instances for the if statement. player 1 is always human 
                    so i always creater player1 as HumanPlayer and the if determines if it's computer or human.*/
                 Player player1 = new HumanPlayer(player1Name, Disk.White);
+                gameManager.player1 = player1;
                 if (isPlayer2Computer)
                 {
                     ComputerPlayer player2;
                     player2 = new ComputerPlayer(player2Name, Disk.Black);
-                    
+                    gameManager.player2 = player2; ;
                 }
                 else
                 {
                     Player player2;
                     player2 = new HumanPlayer(player2Name, Disk.Black);
+                    gameManager.player2 = player2;
                 }
 
 

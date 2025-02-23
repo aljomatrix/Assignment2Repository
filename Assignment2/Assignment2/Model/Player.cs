@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Assignment2.Model
 {
-    abstract class Player
+    public abstract class Player
     {
         public Disk Disk { get; set; }
         string Name { get; set; }

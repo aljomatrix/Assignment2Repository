@@ -4,20 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using Assignment2.Model.Assignment2;
 using Assignment2.View;
 
 namespace Assignment2.Model
 {
     class GameManager
     {
-        public string player1;
-        public string player2;
+        public Player player1 { set; get; }
+        public Player player2 { set; get; }
 
-        public GameManager(string player1, string player2)
+
+        public GameManager(Player player1, Player player2)
         {
             this.player1 = player1;
             this.player2 = player2;
         }
+
 
         public void StartGame(GameGrid gameGridControl)
         {

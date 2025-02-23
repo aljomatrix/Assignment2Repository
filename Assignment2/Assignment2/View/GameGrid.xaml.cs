@@ -17,14 +17,12 @@ namespace Assignment2.View
         private Disk _currentPlayerDisk = Disk.Black;
         private ComputerPlayer _computerPlayer;
 
-
         public GameGrid()
         {
             _board = new GameBoard();
             InitializeComponent();
             InitializeBoard();
             UpdateBoard(_board.BoardState);
-
         }
         public GameGrid(bool isPlayer2Computer)
         {
@@ -48,7 +46,7 @@ namespace Assignment2.View
                     TogglePlayerTurn();
 
                     // If Player 2 is a computer, execute AI move
-                    if (player2 is ComputerPlayer)
+                    if (SetUpGameDi is ComputerPlayer)
                     {
                         await Task.Delay(1000); // Optional delay for realism
                         var aiMove = await _computerPlayer.ExecuteAIMove(_board);
