@@ -30,6 +30,12 @@ namespace Assignment2.View
             UpdateBoard(_gameManager.Board.BoardState);
         }
 
+        public void SetPlayers(Player player1, Player player2)
+        {
+            _gameManager = new GameManager(player1, player2);
+            InitializeBoard();
+        }
+
         // Mouse Click event handler
         private async void GameGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -72,6 +78,7 @@ namespace Assignment2.View
             // Clear any existing content (in case of reset)
             BoardGrid.Children.Clear();
 
+            _gameManager.OnUpdateBoard += UpdateBoard;
             // Loop through each grid cell and create a tile
             for (int row = 0; row < 8; row++)
             {

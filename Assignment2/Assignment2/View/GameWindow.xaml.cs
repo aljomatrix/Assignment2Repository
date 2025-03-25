@@ -12,7 +12,7 @@ namespace Assignment2.View
         private GameManager gameManager;
         private string player1Name;
         private string player2Name;
-        
+
 
         public GameWindow()
         {
@@ -96,15 +96,6 @@ namespace Assignment2.View
         {
             // Close the application
             Application.Current.Shutdown();
-        }
-    }
-    public partial class GameGrid : UserControl
-    {
-        private GameManager _gameManager;
-
-        public void SetPlayers(Player player1, Player player2)
-        {
-            _gameManager = new GameManager(player1, player2);
         }
     }
 }
