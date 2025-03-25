@@ -55,12 +55,17 @@ namespace Assignment2.Model
         {
             return _board.IsValidMove(row, column, _currentPlayerDisk);
         }
-
+        public delegate void InitializeWinnerDialogDelegate();
+        public InitializeWinnerDialogDelegate OnInitializeWinnerDialog;
         public async Task<bool> ExecuteMove(int row, int column)
         {
             if (row >= 0 && row < 8 && column >= 0 && column < 8)
             {
-                if (_board.IsValidMove(row, column, _currentPlayerDisk))
+                if (Board.GetValidMoves(_currentPlayerDisk).Count == 0)
+                {
+                    OnInitializeWinnerDialog?.Invoke();
+                }
+                else if (_board.IsValidMove(row, column, _currentPlayerDisk))
                 {
                     _board.ExecuteMove(row, column, _currentPlayerDisk);
                     OnUpdateBoard(_board.BoardState);
@@ -75,6 +80,10 @@ namespace Assignment2.Model
                         _board.ExecuteMove(aiMove.x, aiMove.y, _currentPlayerDisk);
                         OnUpdateBoard(_board.BoardState);
                         TogglePlayerTurn();
+                    }
+                    if (_board.GameOver())
+                    {
+                        OnInitializeWinnerDialog?.Invoke();
                     }
                     return true;
                 }

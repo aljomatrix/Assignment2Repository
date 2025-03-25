@@ -22,12 +22,16 @@ namespace Assignment2.View
             InitializeBoard();
             UpdateBoard(_gameManager.Board.BoardState);
             _gameManager.OnUpdateBoard = new UpdateBoardDelegate(UpdateBoard);
+            _gameManager.OnInitializeWinnerDialog = new GameManager.InitializeWinnerDialogDelegate(InitializeWinnerDialog);
+
         }
         public GameGrid(bool isPlayer2Computer)
         {
             InitializeComponent();
             InitializeBoard();
             UpdateBoard(_gameManager.Board.BoardState);
+            _gameManager.OnInitializeWinnerDialog = new GameManager.InitializeWinnerDialogDelegate(InitializeWinnerDialog);
+
         }
 
         public void SetPlayers(Player player1, Player player2)
@@ -36,6 +40,8 @@ namespace Assignment2.View
             _gameManager = new GameManager(player1, player2);
             InitializeBoard();
             UpdateBoard(_gameManager.Board.BoardState);
+            _gameManager.OnInitializeWinnerDialog = new GameManager.InitializeWinnerDialogDelegate(InitializeWinnerDialog);
+
         }
 
         // Mouse Click event handler
@@ -45,6 +51,7 @@ namespace Assignment2.View
             int column = (int)(mousePosition.X / 50);
             int row = (int)(mousePosition.Y / 50);
             _gameManager.ExecuteMove(row, column);
+
         }
 
         private void InitializeWinnerDialog()
@@ -72,7 +79,7 @@ namespace Assignment2.View
             winnerDialog.ShowDialog();
 
             // Close the application after the user acknowledges the result
-            Application.Current.Shutdown();
+            winnerDialog.Close();
         }
 
         private void InitializeBoard()

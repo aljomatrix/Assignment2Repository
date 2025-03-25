@@ -47,7 +47,6 @@ namespace Assignment2.Model
                     }
                 }
             }
-
             // Return the list of valid moves
             return validMoves;
         }
