@@ -9,7 +9,6 @@ namespace Assignment2.View
 {
     public partial class GameWindow : Window
     {
-        private GameManager gameManager;
         private string player1Name;
         private string player2Name;
 
@@ -73,7 +72,7 @@ namespace Assignment2.View
                 Player player2 = isPlayer2Computer ? new ComputerPlayer(player2Name, Disk.Black) : new HumanPlayer(player2Name, Disk.Black);
 
                 // Create the GameManager instance.
-                gameManager = new GameManager(player1, player2);
+                //gameManager = new GameManager(player1, player2);
 
                 // Set player names in the UI
                 Player1NameTextBlock.Text = $"Player 1: {player1Name}";
@@ -81,7 +80,7 @@ namespace Assignment2.View
 
                 GameGridControl.SetPlayers(player1, player2);
 
-                gameManager.StartGame(GameGridControl);
+                //gameManager.StartGame(GameGridControl);
 
             }
             else

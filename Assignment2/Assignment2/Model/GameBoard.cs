@@ -54,6 +54,10 @@ namespace Assignment2.Model
 
         public void ExecuteMove(int row, int col, Disk currentPlayerDisk)
         {
+            if (currentPlayerDisk == Disk.Empty)
+            {
+                currentPlayerDisk = Disk.Black;
+            }
 
             board[row, col] = currentPlayerDisk;
 

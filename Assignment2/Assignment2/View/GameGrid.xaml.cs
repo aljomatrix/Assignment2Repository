@@ -32,8 +32,10 @@ namespace Assignment2.View
 
         public void SetPlayers(Player player1, Player player2)
         {
+            _gameManager.OnUpdateBoard = null;
             _gameManager = new GameManager(player1, player2);
             InitializeBoard();
+            UpdateBoard(_gameManager.Board.BoardState);
         }
 
         // Mouse Click event handler
