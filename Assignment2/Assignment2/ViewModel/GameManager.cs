@@ -20,7 +20,7 @@ namespace Assignment2.Model
         private Player _player1;
         private Player _player2;
         public GameBoard Board => _board;
-        private Disk _currentPlayerDisk;
+        private Disk _currentPlayerDisk = Disk.Black;
         public delegate void UpdateBoardDelegate(Disk[,] board);
         public UpdateBoardDelegate OnUpdateBoard;
 
@@ -71,6 +71,7 @@ namespace Assignment2.Model
                     {
                         await Task.Delay(1000); // Optional delay for realism
                         var aiMove = await computer.ExecuteAIMove(_board);
+                        _currentPlayerDisk = Disk.White;
                         _board.ExecuteMove(aiMove.x, aiMove.y, _currentPlayerDisk);
                         OnUpdateBoard(_board.BoardState);
                         TogglePlayerTurn();
@@ -91,6 +92,10 @@ namespace Assignment2.Model
             if (_currentPlayerDisk == Disk.Black)
             {
                 _currentPlayerDisk = Disk.White;
+            }
+            else if(_currentPlayerDisk == Disk.Empty)
+            {
+                _currentPlayerDisk = Disk.Black;
             }
             else
             {
